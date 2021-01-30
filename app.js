@@ -27,7 +27,11 @@ startBtn.addEventListener('click', () => {
 })
 
 intro.addEventListener('timeupdate', () => {
-  if (intro.currentTime >= musicSwitch.intro && raft[0].paused) {
+  if (
+    intro.currentTime >= musicSwitch.intro &&
+    raft[0].paused &&
+    isPlaying[0]
+  ) {
     raft[0].currentTime = 0
     raft[0].play()
     isPlaying = [true, 0]
@@ -37,7 +41,11 @@ intro.addEventListener('timeupdate', () => {
 raft.forEach((rafting, i) => {
   rafting.addEventListener('timeupdate', () => {
     const nextraf = i + 1 > 3 ? 0 : i + 1
-    if (raft[i].currentTime >= musicSwitch.raft[i] && raft[nextraf].paused) {
+    if (
+      raft[i].currentTime >= musicSwitch.raft[i] &&
+      raft[nextraf].paused &&
+      isPlaying[0]
+    ) {
       raft[nextraf].currentTime = 0
       isPlaying = [true, nextraf]
       raft[nextraf].play()
